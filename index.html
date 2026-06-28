@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPI Bangkalan Jaya</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --bg-grad: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 50%, #fef2f2 100%);
+            
+            /* Theme Colors per Menu */
+            --color-visi: #0d9488;
+            --color-visi-bg: #ccfbf1;
+            --color-visi-content: #f0fdfa;
+            --grad-visi: linear-gradient(135deg, #0d9488 0%, #06b6d4 100%);
+
+            --color-komunitas: #3b82f6;
+            --color-komunitas-bg: #dbeafe;
+            --color-komunitas-content: #eff6ff;
+            --grad-komunitas: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+
+            --color-kurikulum: #d97706;
+            --color-kurikulum-bg: #fef3c7;
+            --color-kurikulum-content: #fffbeb;
+            --grad-kurikulum: linear-gradient(135deg, #f59e0b 0%, #eab308 100%);
+
+            --color-pengurus: #ec4899;
+            --color-pengurus-bg: #fce7f3;
+            --color-pengurus-content: #fdf2f8;
+            --grad-pengurus: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
+            
+            --text-dark: #334155;
+
+            --color-galeri: #8b5cf6;
+--color-galeri-bg: #ede9fe;
+--color-galeri-content: #f5f3ff;
+--grad-galeri: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+
+    --color-galeri2: #2563eb;
+    --color-galeri2-bg: #dbeafe;
+    --color-galeri2-content: #eff6ff;
+    --grad-galeri2: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+
+    --color-kontak: #25d366;
+--color-kontak-bg: #dcfce7;
+--color-kontak-content: #f0fdf4;
+--grad-kontak: linear-gradient(135deg, #25d366 0%, #16a34a 100%);
+        }
+
+        body {
+            background: var(--bg-grad);
+            background-attachment: fixed;
+            min-height: 100vh;
+            font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+            color: #1e293b;
+        }
+
+        .main-container {
+            max-width: 540px;
+            margin: 0 auto;
+            padding-bottom: 50px;
+        }
+
+        /* Header Card */
+        .header-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 0 0 28px 28px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            margin-bottom: 28px;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .banner-wrapper {
+            position: relative;
+            width: 100%;
+            height: 190px;
+            overflow: hidden;
+        }
+
+        .banner-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-wrapper {
+            position: relative;
+            text-align: center;
+            margin-top: -55px;
+            z-index: 2;
+            
+        }
+
+        .profile-img {
+            width: 115px;
+            height: 148px;
+            border-radius: 5%;
+            border: 2px solid white;
+            object-fit: cover;
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
+        }
+
+        .info-section {
+            padding: 20px 24px 24px 24px;
+            text-align: center;
+        }
+
+        .main-title {
+            font-weight: 800;
+            font-size: 1.65rem;
+            letter-spacing: -0.5px;
+            color: #0f172a;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: #475569;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Custom Accordion Base */
+        .custom-accordion-item {
+            background: white;
+            border-radius: 16px !important;
+            border: 1px solid rgba(241, 245, 249, 0.8);
+            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.02);
+            margin-bottom: 16px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .custom-accordion-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+        }
+
+        .custom-accordion-button {
+            background: white;
+            padding: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            border: none;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .button-icon-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .button-text {
+            flex-grow: 1;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #334155;
+            padding: 0 14px;
+            line-height: 1.4;
+            transition: color 0.3s ease;
+        }
+
+        .button-arrow-box {
+            width: 36px;
+            height: 36px;
+            background-color: #f1f5f9;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-size: 1rem;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .custom-accordion-button[aria-expanded="true"] .button-arrow-box i {
+            transform: rotate(180deg);
+        }
+
+        .button-arrow-box i {
+            transition: transform 0.3s ease;
+        }
+
+        .custom-content-body {
+            padding: 24px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        /* --- TEMA MENU 1: VISI MISI (Teal/Toska) --- */
+        .menu-visi .button-icon-box {
+            background-color: var(--color-visi-bg);
+            color: var(--color-visi);
+        }
+        .menu-visi .custom-accordion-button:not(.collapsed) {
+            background: var(--grad-visi);
+        }
+        .menu-visi .custom-content-body {
+            background-color: var(--color-visi-content);
+            border-top: 1px solid rgba(13, 148, 136, 0.1);
+        }
+
+        /* --- TEMA MENU 2: KOMUNITAS (Biru) --- */
+        .menu-komunitas .button-icon-box {
+            background-color: var(--color-komunitas-bg);
+            color: var(--color-komunitas);
+        }
+        .menu-komunitas .custom-accordion-button:not(.collapsed) {
+            background: var(--grad-komunitas);
+        }
+        .menu-komunitas .custom-content-body {
+            background-color: var(--color-komunitas-content);
+            border-top: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        /* --- TEMA MENU 3: KURIKULUM (Kuning Emas) --- */
+        .menu-kurikulum .button-icon-box {
+            background-color: var(--color-kurikulum-bg);
+            color: var(--color-kurikulum);
+        }
+        .menu-kurikulum .custom-accordion-button:not(.collapsed) {
+            background: var(--grad-kurikulum);
+        }
+        .menu-kurikulum .custom-content-body {
+            background-color: var(--color-kurikulum-content);
+            border-top: 1px solid rgba(245, 158, 11, 0.1);
+        }
+
+        /* --- TEMA MENU 4: PENGURUS (Pink/Merah) --- */
+        .menu-pengurus .button-icon-box {
+            background-color: var(--color-pengurus-bg);
+            color: var(--color-pengurus);
+        }
+        .menu-pengurus .custom-accordion-button:not(.collapsed) {
+            background: var(--grad-pengurus);
+        }
+        .menu-pengurus .custom-content-body {
+            background-color: var(--color-pengurus-content);
+            border-top: 1px solid rgba(236, 72, 153, 0.1);
+        }
+
+        .menu-pengurus table {
+    font-size: 0.88rem;
+}
+
+.menu-pengurus td,
+.menu-pengurus th {
+    vertical-align: top;
+}
+
+.menu-pengurus .table {
+    margin-bottom: 0;
+}
+
+        /* Sinkronisasi saat aktif */
+        .custom-accordion-button:not(.collapsed) .button-text {
+            color: white;
+        }
+        .custom-accordion-button:not(.collapsed) .button-icon-box,
+        .custom-accordion-button:not(.collapsed) .button-arrow-box {
+            background: rgba(255, 255, 255, 0.25);
+            color: white;
+        }
+
+        /* Misi List Styling (image_8a5de1.png) */
+        .misi-title {
+            font-weight: 700;
+            color: #334155;
+            margin-top: 20px;
+            margin-bottom: 12px;
+        }
+        .misi-list {
+            list-style: none;
+            padding-left: 0;
+            display: inline-block;
+            text-align: left;
+        }
+        .misi-list li {
+            position: relative;
+            padding-left: 32px;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: #475569;
+        }
+        .misi-list li i {
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: #475569;
+            font-size: 1.15rem;
+        }
+
+        /* Portal Berita */
+        .news-section-title {
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: #0f172a;
+            margin-top: 36px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 16px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.02);
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .news-img-wrapper {
+            width: 100%;
+            height: 160px;
+            overflow: hidden;
+        }
+
+        .news-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .news-body {
+            padding: 18px;
+        }
+
+        .news-badge {
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .news-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .news-meta {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .news-excerpt {
+            font-size: 0.88rem;
+            color: #64748b;
+            margin-bottom: 14px;
+        }
+
+        .news-btn {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #0284c7;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Widgets */
+        .top-bar-action {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            color: #334155;
+            text-decoration: none;
+        }
+
+        .top-bar-logo {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            font-weight: 800;
+            color: #ef4444;
+            font-size: 1.25rem;
+        }
+
+        .custom-toast {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #1e293b;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            z-index: 9999;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .custom-toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* --- TEMA MENU 5: GALERI (Ungu) --- */
+.menu-galeri .button-icon-box {
+    background-color: var(--color-galeri-bg);
+    color: var(--color-galeri);
+}
+.menu-galeri .custom-accordion-button:not(.collapsed) {
+    background: var(--grad-galeri);
+}
+.menu-galeri .custom-content-body {
+    background-color: var(--color-galeri-content);
+    border-top: 1px solid rgba(139, 92, 246, 0.1);
+}
+
+.menu-galeri2 .button-icon-box {
+    background-color: var(--color-galeri2-bg);
+    color: var(--color-galeri2);
+}
+
+.menu-galeri2 .button-arrow-box {
+    background-color: var(--color-galeri2-bg);
+    color: var(--color-galeri2);
+}
+
+.menu-galeri2 .custom-accordion-button:not(.collapsed) {
+    background: var(--grad-galeri2);
+}
+
+.menu-galeri2 .custom-content-body {
+    background-color: var(--color-galeri2-content);
+    border-top: 1px solid rgba(37, 99, 235, 0.1);
+}
+
+/* Gaya Foto Galeri */
+.gallery-img-wrapper {
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    transition: transform 0.3s ease;
+    background-color: #e2e8f0;
+}
+.gallery-img-wrapper:hover {
+    transform: scale(1.04);
+}
+.gallery-item {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+.gallery-caption {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #64748b;
+    margin-top: 6px;
+}
+
+.gallery-item {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+.gallery-item:hover {
+    transform: scale(1.08);
+}
+
+.modal-img {
+    width: 100%;
+    border-radius: 12px;
+}
+
+.modal-content {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.menu-kurikulum .btn {
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-weight: 600;
+    transition: all .3s ease;
+}
+
+.menu-kurikulum .btn:hover {
+    transform: translateY(-2px);
+}
+
+/* --- TEMA MENU 6: KONTAK / PERTANYAAN (Hijau WhatsApp) --- */
+
+.menu-kontak .button-icon-box {
+    background-color: var(--color-kontak-bg);
+    color: var(--color-kontak);
+}
+
+.menu-kontak .custom-accordion-button:not(.collapsed) {
+    background: var(--grad-kontak);
+}
+
+.menu-kontak .custom-content-body {
+    background-color: var(--color-kontak-content);
+    border-top: 1px solid rgba(37, 211, 102, 0.15);
+}
+
+/* Judul */
+.menu-kontak h6 {
+    color: #166534;
+    font-size: 1rem;
+    margin-bottom: 12px;
+}
+
+/* Paragraf */
+.menu-kontak p {
+    color: #475569;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+/* Tombol Form */
+.menu-kontak .btn-primary {
+    background: linear-gradient(135deg, #25d366 0%, #16a34a 100%);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 18px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+    transition: all .3s ease;
+}
+
+.menu-kontak .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(37, 211, 102, 0.35);
+}
+
+/* Saat menu aktif */
+.menu-kontak .custom-accordion-button:not(.collapsed) .button-text {
+    color: #fff;
+}
+
+.menu-kontak .custom-accordion-button:not(.collapsed) .button-icon-box,
+.menu-kontak .custom-accordion-button:not(.collapsed) .button-arrow-box {
+    background: rgba(255,255,255,.25);
+    color: #fff;
+}
+
+/* --- TEMA MENU VIDEO --- */
+:root{
+    --color-video: #ef4444;
+    --color-video-bg: #fee2e2;
+    --color-video-content: #fef2f2;
+    --grad-video: linear-gradient(135deg,#ef4444 0%,#dc2626 100%);
+}
+
+.menu-video .button-icon-box{
+    background: var(--color-video-bg);
+    color: var(--color-video);
+}
+
+.menu-video .custom-accordion-button:not(.collapsed){
+    background: var(--grad-video);
+}
+
+.menu-video .custom-content-body{
+    background: var(--color-video-content);
+    border-top: 1px solid rgba(239,68,68,.15);
+}
+
+.video-card{
+    background:#fff;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 4px 12px rgba(0,0,0,.05);
+    margin-bottom:20px;
+}
+
+.video-card iframe{
+    width:100%;
+    height:220px;
+}
+
+.video-info{
+    padding:12px;
+}
+
+.video-info h6{
+    font-weight:700;
+    margin-bottom:6px;
+}
+
+.video-info p{
+    font-size:.85rem;
+    color:#64748b;
+    margin:0;
+}
+
+/* MENU VIDEO */
+:root{
+    --color-video: #ef4444;
+    --color-video-bg: #fee2e2;
+    --color-video-content: #fef2f2;
+    --grad-video: linear-gradient(135deg,#ef4444 0%,#dc2626 100%);
+}
+
+.menu-video .button-icon-box{
+    background: var(--color-video-bg);
+    color: var(--color-video);
+}
+
+.menu-video .custom-accordion-button:not(.collapsed){
+    background: var(--grad-video);
+}
+
+.menu-video .custom-content-body{
+    background: var(--color-video-content);
+    border-top: 1px solid rgba(239,68,68,.15);
+}
+
+.video-card{
+    background:#fff;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 4px 12px rgba(0,0,0,.06);
+    margin-bottom:20px;
+}
+
+.video-card video{
+    width:100%;
+    display:block;
+}
+
+.video-info{
+    padding:12px 15px;
+}
+
+.video-info h6{
+    font-weight:700;
+    margin-bottom:5px;
+}
+
+.video-info p{
+    font-size:.85rem;
+    color:#64748b;
+    margin:0;
+}
+
+.menu-kalender .button-icon-box{
+    background:#d1fae5;
+    color:#10b981;
+}
+
+.menu-kalender .custom-accordion-button:not(.collapsed){
+    background:linear-gradient(135deg,#10b981,#059669);
+}
+
+.menu-kalender .custom-content-body{
+    background:#f0fdf4;
+}
+
+.timeline{
+    position:relative;
+    padding-left:25px;
+}
+
+.timeline::before{
+    content:'';
+    position:absolute;
+    left:8px;
+    top:0;
+    width:3px;
+    height:100%;
+    background:#10b981;
+}
+
+.timeline-item{
+    position:relative;
+    margin-bottom:20px;
+}
+
+.timeline-item::before{
+    content:'';
+    position:absolute;
+    left:-21px;
+    top:15px;
+    width:16px;
+    height:16px;
+    border-radius:50%;
+    background:#10b981;
+    border:3px solid #fff;
+}
+
+.event-card{
+    background:#fff;
+    border-radius:16px;
+    padding:15px;
+    box-shadow:0 4px 12px rgba(0,0,0,.05);
+}
+
+.event-date{
+    display:inline-block;
+    background:#10b981;
+    color:white;
+    font-size:.8rem;
+    font-weight:700;
+    padding:5px 10px;
+    border-radius:30px;
+    margin-bottom:8px;
+}
+
+.event-title{
+    font-weight:700;
+    margin-bottom:6px;
+}
+
+.event-location{
+    color:#64748b;
+    font-size:.85rem;
+}
+
+.event-status{
+    display:inline-block;
+    margin-top:10px;
+    padding:4px 10px;
+    border-radius:20px;
+    font-size:.75rem;
+    font-weight:600;
+}
+
+.status-upcoming{
+    background:#dbeafe;
+    color:#2563eb;
+}
+
+.status-done{
+    background:#dcfce7;
+    color:#15803d;
+}
+    </style>
+</head>
+
+<body>
+
+    <!-- Modal Zoom Foto -->
+<div class="modal fade" id="galleryModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">
+                    Detail Foto
+                </h5>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <img id="modalImage"
+                     src=""
+                     class="modal-img"
+                     alt="">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+    <div class="container main-container px-3">
+        
+        <!-- Header -->
+        <div class="header-card">
+            <div class="banner-wrapper">
+                <img src="Banner.jpeg" class="banner-img" alt="Banner">
+            </div>
+            
+            <div class="profile-wrapper">
+                <img src="profile.png" class="profile-img" alt="Profile">
+            </div>
+            
+            <div class="info-section">
+                <h1 class="main-title">IPI BANGKALAN JAYA</h1>
+                <div class="subtitle">"IPI Jaya, Penilik Sejahtera, Paud Dikmas Berkualitas"</div>
+            </div>
+        </div>
+
+        <!-- Menu 1: Visi Misi (Tema Content: Toska Muda) -->
+        <div class="custom-accordion-item menu-visi">
+            <button class="custom-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false">
+                <div class="button-icon-box"><i class="bi bi-journal-bookmark-fill"></i></div>
+                <div class="button-text">Visi Misi</div>
+                <div class="button-arrow-box"><i class="bi bi-chevron-down"></i></div>
+            </button>
+            <div id="collapseOne" class="collapse">
+                <div class="custom-content-body text-center">
+                    <p class="mb-2"><strong>Visi:</strong> Terwujudnya Insan Bangkalan yang Cerdas secara Intelektual, Kokoh dalam Karakter, dan Unggul dalam Prestasi menuju Masyarakat yang Sejahtera</p>
+                    
+                    <h5 class="misi-title">Misi:</h5>
+                    <ul class="misi-list">
+                        <li><i class="bi bi-check-circle-fill"></i> 1. Pengawasan Mutu Pembelajaran</li>
+                        <li><i class="bi bi-check-circle-fill"></i> 2. Penguatan Karakter dan Literasi</li>
+                        <li><i class="bi bi-check-circle-fill"></i> 3. Pembinaan Profesionalisme Guru</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu 2: Komunitas (Tema Content: Biru Muda) -->
+        <div class="custom-accordion-item menu-komunitas">
+            <button class="custom-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false">
+                <div class="button-icon-box"><i class="bi bi-building-fill"></i></div>
+                <div class="button-text">Komunitas Penilik Kab. Bangkalan</div>
+                <div class="button-arrow-box"><i class="bi bi-chevron-down"></i></div>
+            </button>
+            <div id="collapseTwo" class="collapse">
+                <div class="custom-content-body text-center">
+                    <p class="mb-0">Wadah silaturahmi, ruang kolaborasi, dan pusat kegiatan resmi koordinasi bagi seluruh Penilik PAUD aktif di lingkungan Dinas Pendidikan Kabupaten Bangkalan.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu 4: Pengurus (Tema Content: Pink Muda) -->
+        <div class="custom-accordion-item menu-pengurus">
+            <button class="custom-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false">
+                <div class="button-icon-box"><i class="bi bi-people-fill"></i></div>
+                <div class="button-text">Pengurus dan Penasehat IPI Bangkalan</div>
+                <div class="button-arrow-box"><i class="bi bi-chevron-down"></i></div>
+            </button>
+            <div id="collapseFour" class="collapse">
+    <div class="custom-content-body">
+
+        <h5 class="text-center fw-bold mb-3">
+            SUSUNAN PENGURUS DAERAH<br>
+            IKATAN PENILIK INDONESIA KABUPATEN BANGKALAN
+        </h5>
+
+        <p class="text-center text-muted mb-4">
+            Masa Bakti Tahun 2025 – 2027
+        </p>
+
+        <div class="table-responsive">
+            <table class="table table-sm align-middle">
+
+                <tr>
+                    <td width="35%"><strong>Pelindung</strong></td>
+                    <td>Kepala Dinas Pendidikan Kabupaten Bangkalan</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Pembina</strong></td>
+                    <td>Kepala Bidang Pembinaan PAUD dan PNF</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Majelis Kehormatan dan Kode Etik</strong></td>
+                    <td>
+                        1. Mohammad Hairullah, S.Pd<br>
+                        2. Abdul Gaffar Zain, S.Pd
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><strong>Ketua</strong></td>
+                    <td>Miskawi, S.Pd., M.Si</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Sekretaris</strong></td>
+                    <td>Nurhidayat, S.Pd</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Wakil Sekretaris</strong></td>
+                    <td>Rakhmad Karyawan, S.Pd</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Bendahara</strong></td>
+                    <td>Kartini, S.Pd</td>
+                </tr>
+
+                <tr>
+                    <td><strong>Wakil Bendahara</strong></td>
+                    <td>Suti Aminah, S.Pd</td>
+                </tr>
+
+            </table>
+        </div>
+
+        <hr>
+
+        <h6 class="fw-bold mb-3">
+            Sekretariat Bidang
+        </h6>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-sm">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>Bidang</th>
+                        <th>Penanggung Jawab</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Organisasi dan Kaderisasi</td>
+                        <td>
+                            1. Agus Ngusman Aji, S.Pd<br>
+                            2. Sri Kurniati Utami, S.Pd
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Informasi Komunikasi dan Pengabdian Masyarakat</td>
+                        <td>
+                            1. Hotibul Umam, S.Pd<br>
+                            2. Mohammad Holili, SH, M.Pd.I
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Pengembangan Karier dan Profesi</td>
+                        <td>Sayyadi, M.Pd</td>
+                    </tr>
+
+                    <tr>
+                        <td>Pembinaan PAUD dan PNF</td>
+                        <td>Nurhayati, S.Pd</td>
+                    </tr>
+
+                    <tr>
+                        <td>Pembinaan Budaya dan Seni</td>
+                        <td>Haryadi, M.Si</td>
+                    </tr>
+
+                    <tr>
+                        <td>Advokasi dan Perlindungan Hukum</td>
+                        <td>Muhyiddin, SE</td>
+                    </tr>
+
+                    <tr>
+                        <td>Penelitian dan Pengembangan</td>
+                        <td>Sherly Erlysyah, S.Pd</td>
+                    </tr>
+
+                    <tr>
+                        <td>Kerohaniaan dan PHBN</td>
+                        <td>Mohamad Fathur Rozi, S.Pd</td>
+                    </tr>
+
+                    <tr>
+                        <td>Pembinaan Bakat dan Olahraga</td>
+                        <td>Doni Andre Rianto, S.Pd</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+            </div>
+        </div>
+
+           <!-- Menu 3: Kurikulum (Tema Content: Kuning Jingga Lembut) -->
+        <div class="custom-accordion-item menu-kurikulum">
+            <button class="custom-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false">
+                <div class="button-icon-box"><i class="bi bi-camera-reels-fill"></i></div>
+                <div class="button-text">Link Informasi Dan Pembelajaran</div>
+                <div class="button-arrow-box"><i class="bi bi-chevron-down"></i></div>
+            </button>
+            <div id="collapseThree" class="collapse">
+    <div class="custom-content-body">
+
+        <div class="mb-4">
+            <h6 class="fw-bold">
+                <i class="bi bi-folder-fill text-warning"></i>
+                Delapan Standar Kompetensi
+            </h6>
+
+            <a href="https://drive.google.com/"
+               target="_blank">
+               https://drive.google.com/
+            </a>
+
+            <p class="small text-muted mt-1 mb-0">
+                Berisi modul ajar, ATP, Prota, Prosem, dan perangkat pembelajaran lainnya.
+            </p>
+        </div>
+
+        <hr>
+
+        <div class="mb-4">
+            <h6 class="fw-bold">
+                <i class="bi bi-file-earmark-pdf-fill text-danger"></i>
+                Dokumen Administrasi PAUD
+            </h6>
+
+            <a href="https://drive.google.com/"
+               target="_blank">
+               https://drive.google.com/
+            </a>
+
+            <p class="small text-muted mt-1 mb-0">
+                Berisi format laporan, instrumen supervisi, dan administrasi satuan PAUD.
+            </p>
+        </div>
+
+        <hr>
+
+        <div class="mb-4">
+            <h6 class="fw-bold">
+                <i class="bi bi-camera-video-fill text-primary"></i>
+                Video Pembelajaran
+            </h6>
+
+            <a href="https://youtube.com/"
+               target="_blank">
+               https://youtube.com/
+            </a>
+
+            <p class="small text-muted mt-1 mb-0">
+                Kumpulan video pelatihan dan pembelajaran untuk pendidik PAUD.
+            </p>
+        </div>
+
+        <hr>
+
+        <div>
+            <h6 class="fw-bold">
+                <i class="bi bi-book-fill text-success"></i>
+                Materi Sosialisasi Deep Learning
+            </h6>
+
+            <a href="https://drive.google.com/"
+               target="_blank">
+               https://drive.google.com/
+            </a>
+
+            <p class="small text-muted mt-1 mb-0">
+                Berisi materi sosialisasi dan pelatihan Deep Learning untuk guru PAUD.</p>
+        </div>
+
+    </div>
+</div>
+
+    </div>
+
+   <!-- Menu Video Kegiatan -->
+<div class="custom-accordion-item menu-video">
+
+    <button class="custom-accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseVideo">
+
+        <div class="button-icon-box">
+            <i class="bi bi-camera-video-fill"></i>
+        </div>
+
+        <div class="button-text">
+            Video Kegiatan IPI Bangkalan
+        </div>
+
+        <div class="button-arrow-box">
+            <i class="bi bi-chevron-down"></i>
+        </div>
+
+    </button>
+
+    <div id="collapseVideo" class="collapse">
+
+        <div class="custom-content-body">
+
+            <!-- Video 1 -->
+            <div class="video-card">
+                <video controls poster="thumbnail/ipi.png">
+                    <source src="video/IPI.mp4" type="video/mp4">
+                </video>
+
+                <div class="video-info">
+                    <h6>Logo IPI Bangkalan 3D</h6>
+                    <p>Video animasi logo IPI Bangkalan dalam format 3D.</p>
+            </div>
+
+                </div> <!-- video-info -->
+
+            <!-- Video 2 -->
+            <div class="video-card">
+                <video controls poster="thumbnail/penilik.png">
+                    <source src="video/penilik.mp4" type="video/mp4">
+                </video>
+
+                <div class="video-info">
+                    <h6>Purna Tugas</h6>
+                    <p>Video dokumentasi kegiatan purna tugas Penilik PAUD di Kabupaten Bangkalan.</p>
+                </div>
+            </div>
+
+            <!-- Video 3 -->
+            <div class="video-card">
+                <video controls poster="thumbnail/opening.png">
+                    <source src="video/opening.mp4" type="video/mp4">
+                </video>
+
+                <div class="video-info">
+                    <h6>Opening Ceremony</h6>
+                    <p>Video dokumentasi kegiatan pembukaan acara resmi IPI Bangkalan.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+        <div class="custom-accordion-item menu-galeri">
+    <button class="custom-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false">
+        <div class="button-icon-box"><i class="bi bi-images"></i></div>
+        <div class="button-text">Galeri Kegiatan IPI Bangkalan</div>
+        <div class="button-arrow-box"><i class="bi bi-chevron-down"></i></div>
+    </button>
+    <div id="collapseFive" class="collapse">
+        <div class="custom-content-body">
+            <div class="row g-3">
+
+    <div class="col-6 col-md-4 text-center">
+        <div class="gallery-img-wrapper">
+            <img src="/Galeri Penilik/1.jpeg"
+                class="gallery-item"
+                alt="Narasumber"
+                onclick="showImage(this.src,this.alt)">
+        </div>
+        <div class="gallery-caption">Narasumber</div>
+    </div>
+
+    <div class="col-6 col-md-4 text-center">
+        <div class="gallery-img-wrapper">
+            <img src="/Galeri Penilik/2.jpeg"
+                class="gallery-item"
+                alt="Peserta"
+                onclick="showImage(this.src,this.alt)">
+        </div>
+        <div class="gallery-caption">Peserta</div>
+    </div>
+
+    <div class="col-6 col-md-4 text-center">
+        <div class="gallery-img-wrapper">
+            <img src="/Galeri Penilik/3.jpeg"
+                class="gallery-item"
+                alt="Peserta"
+                onclick="showImage(this.src,this.alt)">
+        </div>
+        <div class="gallery-caption">Peserta</div>
+    </div>
+
+    <div class="col-6 col-md-4 text-center">
+        <div class="gallery-img-wrapper">
+            <img src="/Galeri Penilik/4.jpeg"
+                class="gallery-item"
+                alt="Purna Tugas BU Unik"
+                onclick="showImage(this.src,this.alt)">
+        </div>
+        <div class="gallery-caption">Purna Tugas</div>
+    </div>
+
+     <div class="col-6 col-md-4 text-center">
+        <div class="gallery-img-wrapper">
+            <img src="/Galeri Penilik/6.jpeg"
+                class="gallery-item"
+                alt="Purna Tugas Pak Umam"
+                onclick="showImage(this.src,this.alt)">
+        </div>
+        <div class="gallery-caption">Purna Tugas</div>
+    </div>
+
+     <div class="col-6 col-md-4 text-center">
+        <div class="gallery-img-wrapper">
+            <img src="/Galeri Penilik/8.jpeg"
+                class="gallery-item"
+                alt="Peserta"
+                onclick="showImage(this.src,this.alt)">
+        </div>
+        <div class="gallery-caption">Peserta</div>
+    </div>
+
+     <div class="col-6 col-md-4 text-center">
+        <div class="gallery-img-wrapper">
+            <img src="/Galeri Penilik/9.jpeg"
+                class="gallery-item"
+                alt="Purna Siswa"
+                onclick="showImage(this.src,this.alt)">
+        </div>
+        <div class="gallery-caption">Purna Siswa</div>
+    </div>
+
+     <div class="col-6 col-md-4 text-center">
+        <div class="gallery-img-wrapper">
+            <img src="/Galeri Penilik/10.jpeg"
+                class="gallery-item"
+                alt="Koodinasi Kabit"
+                onclick="showImage(this.src,this.alt)">
+        </div>
+        <div class="gallery-caption">Koordinasi</div>
+    </div>
+
+</div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="custom-accordion-item menu-kalender">
+
+    <button class="custom-accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseKalender">
+
+        <div class="button-icon-box">
+            <i class="bi bi-calendar-event-fill"></i>
+        </div>
+
+        <div class="button-text">
+            Kalender Kegiatan IPI Bangkalan
+        </div>
+
+        <div class="button-arrow-box">
+            <i class="bi bi-chevron-down"></i>
+        </div>
+
+    </button>
+
+    <div id="collapseKalender" class="collapse">
+
+        <div class="custom-content-body">
+
+            <div class="timeline">
+
+                <div class="timeline-item">
+                    <div class="event-card">
+
+                        <span class="event-date">
+                            📅 00-00-0000
+                        </span>
+
+                        <div class="event-title">
+                            ---
+                        </div>
+
+                        <div class="event-location">
+                            <i class="bi bi-geo-alt-fill"></i>
+                            ---
+                        </div>
+
+                        <span class="event-status status-upcoming">
+                            ---
+                        </span>
+
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="event-card">
+
+                        <span class="event-date">
+                            📅 00-00-0000
+                        </span>
+
+                        <div class="event-title">
+                            ---
+                        </div>
+
+                        <div class="event-location">
+                            <i class="bi bi-geo-alt-fill"></i>
+                            ---
+                        </div>
+
+                        <span class="event-status status-upcoming">
+                            ---
+                        </span>
+
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="event-card">
+
+                        <span class="event-date">
+                            📅 00-00-0000
+                        </span>
+
+                        <div class="event-title">
+                            ---
+                        </div>
+
+                        <div class="event-location">
+                            <i class="bi bi-geo-alt-fill"></i>
+                            ---
+                        </div>
+
+                        <span class="event-status status-done">
+                            ---
+                        </span>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+    
+        <div class="custom-accordion-item menu-galeri2">
+    <button class="custom-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#paud" aria-expanded="false">
+        <div class="button-icon-box"><i class="bi bi-images"></i></div>
+        <div class="button-text">Galeri Kegiatan PAUD</div>
+        <div class="button-arrow-box"><i class="bi bi-chevron-down"></i></div>
+    </button>
+    <div id="paud" class="collapse">
+        <div class="custom-content-body">
+            <div class="row g-3">
+
+    <div class="col-6 col-md-4 text-center">
+        <div class="gallery-img-wrapper">
+            <img src="/Galeri Paud/1.jpeg"
+                class="gallery-item"
+                alt="Alih jenjang TK PGRI Galis"
+                onclick="showImage(this.src,this.alt)">
+        </div>
+        <div class="gallery-caption">Purna Siswa TK</div>
+    </div>
+
+    <div class="col-6 col-md-4 text-center">
+        <div class="gallery-img-wrapper">
+            <img src="/Galeri Paud/2.jpeg"
+                class="gallery-item"
+                alt="Purna Siswa TK Modung"
+                onclick="showImage(this.src,this.alt)">
+        </div>
+        <div class="gallery-caption">Purna Siswa TK </div>
+    </div>
+
+
+</div>
+            </div>
+        </div>
+    </div>
+
+
+        <!-- Section Portal Berita -->
+        <h2 class="news-section-title"><i class="bi bi-newspaper text-primary"></i> Berita Terbaru</h2>
+
+        <!-- Berita 1 -->
+        <div class="news-card">
+            <div class="news-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=600&auto=format&fit=crop" class="news-img" alt="Berita 1">
+            </div>
+            <div class="news-body">
+                <span class="news-badge">News</span>
+                <h3 class="news-title">Rapat Koordinasi Peningkatan Mutu PAUD Se-Kabupaten Bangkalan</h3>
+                <div class="news-meta"><i class="bi bi-calendar3"></i> 24 Juni 2026</div>
+                <p class="news-excerpt">Ikatan Penilik Indonesia (IPI) Bangkalan menggelar rapat koordinasi guna membahas standarisasi mutu layanan pendidikan usia dini...</p>
+                <a href="https://kominfo.jatimprov.go.id/berita/cari?category_id=91&page=7"
+   target="_blank"
+   class="news-btn">Baca Selengkapnya <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Berita 2 -->
+        <div class="news-card">
+            <div class="news-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=600&auto=format&fit=crop" class="news-img" alt="Berita 1">
+            </div>
+            <div class="news-body">
+                <span class="news-badge">News</span>
+                <h3 class="news-title">Rapat Koordinasi Peningkatan Mutu PAUD Se-Kabupaten Bangkalan</h3>
+                <div class="news-meta"><i class="bi bi-calendar3"></i> 24 Juni 2026</div>
+                <p class="news-excerpt">Ikatan Penilik Indonesia (IPI) Bangkalan menggelar rapat koordinasi guna membahas standarisasi mutu layanan pendidikan usia dini...</p>
+                <a href="https://kominfo.jatimprov.go.id/berita/cari?category_id=91&page=7"
+   target="_blank"
+   class="news-btn">Baca Selengkapnya <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </div>
+
+        
+    <!-- Menu 6 : Hubungi Kami -->
+<div class="custom-accordion-item menu-kontak">
+
+    <button class="custom-accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseSix">
+
+        <div class="button-icon-box">
+            <i class="bi bi-chat-dots-fill"></i>
+        </div>
+
+        <div class="button-text">
+            Pertanyaan dan Saran
+        </div>
+
+        <div class="button-arrow-box">
+            <i class="bi bi-chevron-down"></i>
+        </div>
+
+    </button>
+
+    <div id="collapseSix" class="collapse">
+
+        <div class="custom-content-body">
+
+            <h6 class="fw-bold">
+                Layanan Informasi IPI Bangkalan
+            </h6>
+
+            <p>
+                Apabila memiliki pertanyaan, membutuhkan informasi lebih lanjut,
+                atau ingin menyampaikan saran dan masukan, silakan mengisi formulir berikut.
+            </p>
+
+            <a href="form.html"
+               target="_blank"
+               class="btn btn-primary">
+
+                <i class="bi bi-pencil-square me-2"></i>
+                Isi Formulir Pertanyaan
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+    </div>
+
+
+    <!-- Toast UI Element -->
+    <div class="custom-toast" id="shareToast">
+        <i class="bi bi-check-circle-fill text-success"></i> Tautan berhasil disalin ke papan klip!
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    
+
+    // Zoom Foto Galeri
+    function showImage(src, title) {
+
+        document.getElementById('modalImage').src = src;
+        document.getElementById('modalTitle').innerText = title;
+
+        let modal = new bootstrap.Modal(
+            document.getElementById('galleryModal')
+        );
+
+        modal.show();
+    }
+    </script>
+</body>
+</html>
