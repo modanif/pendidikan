@@ -1,10 +1,10 @@
-const OWNER = process.env.GITHUB_OWNER;
-const REPO = process.env.GITHUB_REPO;
-const BRANCH = process.env.GITHUB_BRANCH;
-const TOKEN = process.env.GITHUB_TOKEN;
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export default async function handler(req, res) {
-
     if (req.method !== "POST") {
         return res.status(405).json({
             success: false,
@@ -13,7 +13,6 @@ export default async function handler(req, res) {
     }
 
     try {
-
         const { username, password } = req.body;
 
         if (!username || !password) {
@@ -23,88 +22,33 @@ export default async function handler(req, res) {
             });
         }
 
-        const path = "data/user.json";
+        const { data: existingUser } = await supabase
+            .from("users")
+            .select("username")
+            .eq("username", username)
+            .maybeSingle();
 
-        const getFile = await fetch(
-            `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}?ref=${BRANCH}`,
-            {
-                headers: {
-                    Authorization: `token ${TOKEN}`,
-                    Accept: "application/vnd.github+json"
-                }
-            }
-        );
-
-        const fileData = await getFile.json();
-
-        const content = JSON.parse(
-            Buffer.from(fileData.content, "base64").toString()
-        );
-
-        const exists = content.users.find(
-            u => u.username.toLowerCase() === username.toLowerCase()
-        );
-
-        if (exists) {
+        if (existingUser) {
             return res.status(400).json({
                 success: false,
                 message: "Username sudah digunakan"
             });
         }
 
-        content.users.push({
-            id: Date.now(),
-            username,
-            password,
-            role: "user"
+        const { error: insertError } = await supabase
+            .from("users")
+            .insert([{ username, password, role: "user" }]);
+
+        if (insertError) throw insertError;
+
+        return res.status(200).json({
+            success: true,
+            message: "Registrasi berhasil"
         });
-
-        const updatedContent = Buffer.from(
-            JSON.stringify(content, null, 2)
-        ).toString("base64");
-
-     const updateResponse = await fetch(
-    `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`,
-    {
-        method: "PUT",
-        headers: {
-            Authorization: `token ${TOKEN}`,
-            Accept: "application/vnd.github+json"
-        },
-        body: JSON.stringify({
-            message: `Register user ${username}`,
-            content: updatedContent,
-            sha: fileData.sha,
-            branch: BRANCH
-        })
-    }
-);
-
-const updateResult = await updateResponse.json();
-
-if (!updateResponse.ok) {
-
-    return res.status(500).json({
-        success: false,
-        message: updateResult.message
-    });
-
-}
-
-return res.status(200).json({
-
-    success: true,
-    message: "Registrasi berhasil"
-
-});
-
     } catch (err) {
-
         return res.status(500).json({
             success: false,
             message: err.message
         });
-
     }
-
 }
