@@ -2,8 +2,18 @@ const user = JSON.parse(localStorage.getItem("user"));
 
 if (user) {
     document.getElementById("welcome").innerHTML = `Halo, ${user.username} (${user.role})`;
+    document.getElementById("authButton").innerHTML = `
+        <button onclick="logout()" class="btn btn-light btn-sm px-3 rounded-pill text-danger">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </button>
+    `;
 } else {
     document.getElementById("welcome").innerHTML = `Selamat Datang di Forum Diskusi`;
+    document.getElementById("authButton").innerHTML = `
+        <a href="login.html" class="btn btn-light btn-sm px-4 rounded-pill text-primary fw-semibold text-decoration-none">
+            <i class="fa-solid fa-right-to-bracket"></i> Login
+        </a>
+    `;
 }
 
 function logout() {
