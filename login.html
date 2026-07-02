@@ -68,49 +68,43 @@ body{
 </div>
 
 <script>
-
 async function login(){
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
 
-    const username =
-        document.getElementById("username").value;
-
-    const password =
-        document.getElementById("password").value;
-
-    const response = await fetch("/api/login",{
-
-        method:"POST",
-
-        headers:{
-            "Content-Type":"application/json"
-        },
-
-        body:JSON.stringify({
-            username,
-            password
-        })
-
-    });
-
-    const result = await response.json();
-
-    if(result.success){
-
-        localStorage.setItem(
-            "user",
-            JSON.stringify(result.user)
-        );
-
-        window.location.href = "index.html";
-
-    }else{
-
-        alert("Username atau Password salah");
-
+    if (!username || !password) {
+        alert("Username dan password tidak boleh kosong");
+        return;
     }
 
-}
+    try {
+        const response = await fetch("/api/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ username, password })
+        });
 
+        // Cek jika server mengirimkan error (status 500 atau 404) bukan JSON
+        if (!response.ok && response.status === 500) {
+            alert("Terjadi kesalahan pada server (500). Pastikan Environment Variables sudah diisi di Vercel.");
+            return;
+        }
+
+        const result = await response.json();
+
+        if (result.success) {
+            localStorage.setItem("user", JSON.stringify(result.user));
+            window.location.href = "index.html";
+        } else {
+            alert(result.message || "Username atau Password salah");
+        }
+    } catch (error) {
+        console.error(error);
+        alert("Gagal terhubung ke server atau terjadi kesalahan sistem.");
+    }
+}
 </script>
 
 </body>
