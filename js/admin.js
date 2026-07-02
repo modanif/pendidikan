@@ -8,6 +8,28 @@ if (!user || user.role !== "admin") {
     loadDaftarUser();
 }
 
+async function ubahKeAdmin(idUser, username) {
+    if (!confirm(`Apakah Anda yakin ingin menjadikan @${username} sebagai Admin?`)) return;
+
+    try {
+        const response = await fetch("/api/manage-user", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ action: "promote", id: idUser })
+        });
+        const result = await response.json();
+
+        if (result.success) {
+            alert(`@${username} sekarang resmi menjadi Admin!`);
+            loadDaftarUser();
+        } else {
+            alert("Gagal mengubah status: " + result.message);
+        }
+    } catch (err) {
+        alert("Terjadi kesalahan koneksi saat memproses data.");
+    }
+}
+
 async function loadDaftarUser() {
     try {
         const response = await fetch("/api/get-users");
@@ -40,10 +62,21 @@ async function loadDaftarUser() {
                 let tombolPromosi = "";
                 if (u.role !== "admin") {
                     tombolPromosi = `
-                        <button onclick="ubahKeAdmin(${u.id}, '${u.username}')" class="btn btn-sm btn-outline-success me-2 py-1 px-2" title="Jadikan Admin">
+                        <button onclick="ubahKeAdmin(${u.id}, '${u.username}')" class="btn btn-sm btn-outline-success me-2 py-1 px-2">
                             <i class="fa-solid fa-user-shield"></i> Jadikan Admin
                         </button>
                     `;
+                }
+
+                let tombolHapus = "";
+                if (user && user.username !== u.username) {
+                    tombolHapus = `
+                        <button onclick="hapusUser(${u.id}, '${u.username}')" class="btn btn-sm btn-outline-danger py-1 px-2">
+                            <i class="fa-solid fa-trash-can"></i> Hapus
+                        </button>
+                    `;
+                } else {
+                    tombolHapus = `<span class="text-muted small italic">Sesi Aktif</span>`;
                 }
 
                 tabelHtml += `
@@ -53,9 +86,7 @@ async function loadDaftarUser() {
                         <td><span class="badge ${badgeColor}">${u.role}</span></td>
                         <td class="text-center">
                             ${tombolPromosi}
-                            <button onclick="hapusUser(${u.id}, '${u.username}')" class="btn btn-sm btn-outline-danger py-1 px-2" title="Hapus Pengguna">
-                                <i class="fa-solid fa-trash-can"></i> Hapus
-                            </button>
+                            ${tombolHapus}
                         </td>
                     </tr>
                 `;
@@ -77,32 +108,10 @@ async function loadDaftarUser() {
     }
 }
 
-async function ubahKeAdmin(idUser, username) {
-    if (!confirm(`Apakah Anda yakin ingin menjadikan @${username} sebagai Admin?`)) return;
-
-    try {
-        const response = await fetch("/api/manage-user", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ action: "promote", id: idUser })
-        });
-        const result = await response.json();
-
-        if (result.success) {
-            alert(`@${username} sekarang resmi menjadi Admin!`);
-            loadDaftarUser();
-        } else {
-            alert("Gagal mengubah status: " + result.message);
-        }
-    } catch (err) {
-        alert("Terjadi kesalahan koneksi saat memproses data.");
-    }
-}
-
 async function hapusUser(idUser, username) {
     const currentUser = JSON.parse(localStorage.getItem("user"));
     
-    if (currentUser && currentUser.id == idUser) {
+    if (currentUser && currentUser.username === username) {
         alert("Akses ditolak! Anda tidak dapat menghapus akun Anda sendiri yang sedang digunakan.");
         return;
     }
