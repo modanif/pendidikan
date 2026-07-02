@@ -87,7 +87,7 @@ async function loadKomentar() {
 
 if (user && user.role === "user") {
     document.getElementById("formKomentar").innerHTML = `
-        <textarea id="komentar" class="form-control mb-2" rows="3" placeholder="Tulis komentar Anda di sini..."></textarea>
+        <textarea id="komentar" class="form-control mb-2" rows="3" placeholder="Bilamana ada pesan/kesan/saran silahkan komentar"></textarea>
         <button onclick="kirimKomentar()" class="btn btn-send px-4">Kirim Komentar</button>
     `;
 } else if (user && user.role === "admin") {
@@ -99,7 +99,7 @@ if (user && user.role === "user") {
 } else {
     document.getElementById("formKomentar").innerHTML = `
         <div class="alert alert-warning py-3 text-center mb-0" style="font-size: 0.95rem;">
-            <i class="fa-solid fa-lock"></i> Anda harus <a href="login.html" class="fw-bold text-decoration-none">Login</a> terlebih dahulu untuk dapat ikut berdiskusi dan mengirim komentar.
+            <i class="fa-solid fa-lock"></i> Bilamana ada pesan/kesan/saran silahkan komentar, harap <a href="login.html" class="fw-bold text-decoration-none">Login</a> terlebih dahulu.
         </div>
     `;
 }
