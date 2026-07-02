@@ -41,7 +41,7 @@ async function loadDaftarUser() {
                 if (u.role !== "admin") {
                     tombolPromosi = `
                         <button onclick="ubahKeAdmin(${u.id}, '${u.username}')" class="btn btn-sm btn-outline-success me-2 py-1 px-2" title="Jadikan Admin">
-                            <i class="fa-solid fa-user-shield"></i> Jadi Admin
+                            <i class="fa-solid fa-user-shield"></i> Jadikan Admin
                         </button>
                     `;
                 }
