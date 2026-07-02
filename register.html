@@ -1,121 +1,155 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Register User</title>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<style>
-body{
-    background:#f5f7fa;
-}
-
-.register-box{
-    max-width:450px;
-    margin:80px auto;
-}
-
-.card{
-    border:none;
-    border-radius:15px;
-    box-shadow:0 5px 20px rgba(0,0,0,.1);
-}
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register User - Penilik</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #eef2f7;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        .register-box {
+            max-width: 420px;
+            width: 100%;
+            margin: auto;
+            padding: 20px;
+        }
+        .card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        .card-header-gradient {
+            background: linear-gradient(135deg, #4e54c8, #8f94fb);
+            color: white;
+            padding: 30px 20px;
+            text-center: center;
+        }
+        .input-group-text {
+            background-color: #f8f9fa;
+            border-right: none;
+            color: #6c757d;
+        }
+        .form-control {
+            border-left: none;
+        }
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #ced4da;
+        }
+        .btn-register {
+            background: linear-gradient(135deg, #4e54c8, #8f94fb);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+        .btn-register:hover {
+            opacity: 0.9;
+            color: white;
+        }
+        .btn-back {
+            color: #6c757d;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .btn-back:hover {
+            color: #4e54c8;
+        }
+    </style>
 </head>
 <body>
 
 <div class="container">
-
     <div class="register-box">
-
-        <div class="card p-4">
-
-            <h3 class="text-center mb-4">
-                Register User
-            </h3>
-
-            <input
-                type="text"
-                id="username"
-                class="form-control mb-3"
-                placeholder="Username">
-
-            <input
-                type="password"
-                id="password"
-                class="form-control mb-3"
-                placeholder="Password">
-
-            <button
-                class="btn btn-success"
-                onclick="registerUser()">
-
-                Daftar
-
-            </button>
-
-            <hr>
-
-            <a href="login.html"
-               class="btn btn-primary">
-
-               Login
-
+        <!-- Tombol Kembali ke Index diletakkan di atas card -->
+        <div class="mb-3 text-start">
+            <a href="index.html" class="btn-back">
+                <i class="fa-solid fa-arrow-left-long text-sm"></i> Kembali ke Beranda
             </a>
-
         </div>
 
-    </div>
+        <div class="card">
+            <div class="card-header-gradient text-center">
+                <h4 class="mb-1 fw-bold">Buat Akun Baru</h4>
+                <p class="mb-0 opacity-75 text-sm" style="font-size: 0.85rem;">Silakan isi formulir di bawah ini</p>
+            </div>
+            
+            <div class="card-body p-4">
+                <!-- Input Username dengan Ikon -->
+                <div class="mb-3">
+                    <label class="form-label small text-muted fw-semibold">Username</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
+                        <input type="text" id="username" class="form-control" placeholder="Masukkan username">
+                    </div>
+                </div>
 
+                <!-- Input Password dengan Ikon -->
+                <div class="mb-4">
+                    <label class="form-label small text-muted fw-semibold">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                        <input type="password" id="password" class="form-control" placeholder="Masukkan password">
+                    </div>
+                </div>
+
+                <!-- Tombol Daftar -->
+                <button class="btn btn-register w-100 mb-3" onclick="registerUser()">
+                    <i class="fa-solid fa-user-plus me-1"></i> Daftar Sekarang
+                </button>
+
+                <div class="text-center mt-3">
+                    <span class="text-muted small">Sudah punya akun? </span>
+                    <a href="login.html" class="text-decoration-none fw-semibold" style="color: #4e54c8;">Login di sini</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
-
 async function registerUser(){
-
-    const username =
-        document.getElementById("username").value.trim();
-
-    const password =
-        document.getElementById("password").value.trim();
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
 
     if(!username || !password){
-
         alert("Username dan password wajib diisi");
-
         return;
     }
 
-    const response = await fetch("/api/register",{
+    try {
+        const response = await fetch("/api/register",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                username,
+                password
+            })
+        });
 
-        method:"POST",
+        const result = await response.json();
+        alert(result.message);
 
-        headers:{
-            "Content-Type":"application/json"
-        },
-
-        body:JSON.stringify({
-            username,
-            password
-        })
-
-    });
-
-    const result = await response.json();
-
-    alert(result.message);
-
-    if(result.success){
-
-        window.location.href="login.html";
-
+        if(result.success){
+            window.location.href="login.html";
+        }
+    } catch (err) {
+        alert("Terjadi kesalahan sistem saat mendaftar");
     }
-
 }
-
 </script>
 
 </body>
