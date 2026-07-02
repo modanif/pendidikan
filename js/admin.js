@@ -100,6 +100,13 @@ async function ubahKeAdmin(idUser, username) {
 }
 
 async function hapusUser(idUser, username) {
+    const currentUser = JSON.parse(localStorage.getItem("user"));
+    
+    if (currentUser && currentUser.id == idUser) {
+        alert("Akses ditolak! Anda tidak dapat menghapus akun Anda sendiri yang sedang digunakan.");
+        return;
+    }
+
     if (!confirm(`Apakah Anda yakin ingin menghapus akun @${username} secara permanen?`)) return;
 
     try {
