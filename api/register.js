@@ -63,27 +63,40 @@ export default async function handler(req, res) {
             JSON.stringify(content, null, 2)
         ).toString("base64");
 
-        await fetch(
-            `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`,
-            {
-                method: "PUT",
-                headers: {
-                    Authorization: `token ${TOKEN}`,
-                    Accept: "application/vnd.github+json"
-                },
-                body: JSON.stringify({
-                    message: `Register user ${username}`,
-                    content: updatedContent,
-                    sha: fileData.sha,
-                    branch: BRANCH
-                })
-            }
-        );
+     const updateResponse = await fetch(
+    `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`,
+    {
+        method: "PUT",
+        headers: {
+            Authorization: `token ${TOKEN}`,
+            Accept: "application/vnd.github+json"
+        },
+        body: JSON.stringify({
+            message: `Register user ${username}`,
+            content: updatedContent,
+            sha: fileData.sha,
+            branch: BRANCH
+        })
+    }
+);
 
-        return res.status(200).json({
-            success: true,
-            message: "Registrasi berhasil"
-        });
+const updateResult = await updateResponse.json();
+
+if (!updateResponse.ok) {
+
+    return res.status(500).json({
+        success: false,
+        message: updateResult.message
+    });
+
+}
+
+return res.status(200).json({
+
+    success: true,
+    message: "Registrasi berhasil"
+
+});
 
     } catch (err) {
 
