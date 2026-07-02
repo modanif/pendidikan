@@ -99,7 +99,7 @@ if (user && user.role === "user") {
 } else {
     document.getElementById("formKomentar").innerHTML = `
         <div class="alert alert-warning py-3 text-center mb-0" style="font-size: 0.95rem;">
-            <i class="fa-solid fa-lock"></i> Bilamana ingin mengisi komentar, harap <a href="login.html" class="fw-bold text-decoration-none">Login</a> terlebih dahulu.
+            <i class="fa-solid fa-lock"></i> Harap <a href="login.html" class="fw-bold text-decoration-none">Login</a> terlebih dahulu.
         </div>
     `;
 }
