@@ -1,13 +1,3 @@
-const user = JSON.parse(localStorage.getItem("user"));
-
-if (!user || user.role !== "admin") {
-    alert("Akses ditolak! Halaman ini hanya untuk Admin.");
-    location.href = "index.html";
-} else {
-    document.getElementById("adminWelcome").innerHTML = `Log masuk sebagai: ${user.username}`;
-    loadDaftarUser();
-}
-
 async function loadDaftarUser() {
     try {
         const response = await fetch("/api/get-users");
@@ -59,9 +49,9 @@ async function loadDaftarUser() {
             `;
             containerUser.innerHTML = tabelHtml;
         } else {
-            containerUser.innerHTML = "<div class='alert alert-danger'>Gagal memuat data pengguna.</div>";
+            containerUser.innerHTML = `<div class='alert alert-danger'>Gagal memuat data pengguna. Respon Server: <strong>${result.message || 'Tidak ada pesan error detail'}</strong></div>`;
         }
     } catch (err) {
-        console.error("Gagal memuat daftar user:", err);
+        containerUser.innerHTML = `<div class='alert alert-danger'>Terjadi kesalahan koneksi sistem: <strong>${err.message}</strong></div>`;
     }
 }
