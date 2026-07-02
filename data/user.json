@@ -29,6 +29,12 @@
       "username": "Lyra",
       "password": "1234",
       "role": "user"
+    },
+    {
+      "id": 1783012925312,
+      "username": "Lyra A",
+      "password": "1234",
+      "role": "user"
     }
   ]
 }
