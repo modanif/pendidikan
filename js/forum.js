@@ -11,7 +11,6 @@ function logout() {
     location.href = "login.html";
 }
 
-// Fungsi utama untuk memuat dan menampilkan komentar ke layar (di bagian atas)
 async function loadKomentar() {
     try {
         const response = await fetch("/api/comments");
@@ -24,40 +23,57 @@ async function loadKomentar() {
             let htmlContent = "";
             
             result.data.forEach(item => {
+                let aksiAdmin = "";
+                
+                if (user.role === "admin" && !item.balasan) {
+                    aksiAdmin = `
+                        <div class="mt-3 p-2 bg-light rounded border">
+                            <small class="text-muted d-block mb-1">Balas Komentar Ini:</small>
+                            <div class="input-group input-group-sm">
+                                <input type="text" id="reply-${item.id}" class="form-control" placeholder="Tulis balasan admin...">
+                                <button onclick="kirimBalasan(${item.id})" class="btn btn-primary">Kirim</button>
+                            </div>
+                        </div>
+                    `;
+                }
+
                 htmlContent += `
-                    <div class="card mb-3 shadow-sm">
+                    <div class="card comment-card mb-3">
                         <div class="card-body">
-                            <h6 class="card-subtitle mb-2 text-muted">@${item.username}</h6>
-                            <p class="card-text">${item.komentar}</p>
+                            <h6 class="text-primary fw-bold mb-1">@${item.username}</h6>
+                            <p class="card-text mb-2">${item.komentar}</p>
                             ${item.balasan ? `
-                                <div class="bg-light p-2 rounded mt-2 border-left" style="border-left: 4px solid #007bff;">
-                                    <strong>Balasan Admin:</strong>
-                                    <p class="mb-0 text-secondary">${item.balasan}</p>
+                                <div class="bg-light p-2 rounded mt-2 border-start" style="border-left: 4px solid #4e54c8;">
+                                    <strong class="text-dark d-block" style="font-size: 0.85rem;">Balasan Admin:</strong>
+                                    <p class="mb-0 text-secondary" style="font-size: 0.9rem;">${item.balasan}</p>
                                 </div>
                             ` : ""}
+                            ${aksiAdmin}
                         </div>
                     </div>
                 `;
             });
 
-            listKomentarDiv.innerHTML = htmlContent || "<p class='text-muted text-center'>Belum ada komentar.</p>";
+            listKomentarDiv.innerHTML = htmlContent || "<p class='text-muted text-center py-3'>Belum ada komentar.</p>";
         }
     } catch (err) {
         console.error("Gagal memuat komentar:", err);
     }
 }
 
-// Menyiapkan kotak input pengiriman komentar (ditaruh di bawah)
 if (user.role === "user") {
     document.getElementById("formKomentar").innerHTML = `
-        <hr class="my-4">
-        <h4>Kirim Komentar Baru</h4>
         <textarea id="komentar" class="form-control mb-2" rows="3" placeholder="Tulis komentar Anda di sini..."></textarea>
-        <button onclick="kirimKomentar()" class="btn btn-success">Kirim Komentar</button>
+        <button onclick="kirimKomentar()" class="btn btn-send px-4">Kirim Komentar</button>
+    `;
+} else if (user.role === "admin") {
+    document.getElementById("formKomentar").innerHTML = `
+        <div class="alert alert-info py-2" style="font-size: 0.9rem;">
+            <i class="fa-solid fa-user-shield"></i> Anda masuk sebagai Admin. Anda dapat membalas komentar langsung pada daftar di atas.
+        </div>
     `;
 }
 
-// Fungsi untuk mengirim komentar baru ke backend
 async function kirimKomentar() {
     const teksKomentar = document.getElementById("komentar").value;
 
@@ -69,9 +85,7 @@ async function kirimKomentar() {
     try {
         const response = await fetch("/api/comments", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 username: user.username,
                 komentar: teksKomentar
@@ -83,7 +97,7 @@ async function kirimKomentar() {
         if (result.success) {
             alert("Komentar berhasil dikirim!");
             document.getElementById("komentar").value = "";
-            loadKomentar(); // Segera muat ulang agar komentar baru muncul paling atas
+            loadKomentar();
         } else {
             alert("Gagal mengirim: " + result.message);
         }
@@ -92,9 +106,38 @@ async function kirimKomentar() {
     }
 }
 
-// Jalankan fungsi memuat data saat halaman pertama kali dibuka
-loadKomentar();
+async function kirimBalasan(idKomentar) {
+    const teksBalasan = document.getElementById(`reply-${idKomentar}`).value;
 
+    if (!teksBalasan.trim()) {
+        alert("Balasan tidak boleh kosong");
+        return;
+    }
+
+    try {
+        const response = await fetch("/api/balasan", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                id: idKomentar,
+                balasan: teksBalasan
+            })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            alert("Balasan berhasil dikirim!");
+            loadKomentar();
+        } else {
+            alert("Gagal membalas: " + result.message);
+        }
+    } catch (err) {
+        alert("Terjadi kesalahan sistem saat membalas");
+    }
+}
+
+loadKomentar();
 // Contoh cuplikan untuk bagian card di forum.js
 htmlContent += `
     <div class="card comment-card mb-3">
