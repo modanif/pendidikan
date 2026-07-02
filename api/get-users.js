@@ -23,8 +23,8 @@ export default async function handler(req, res) {
         
         const { data, error } = await supabase
             .from("users")
-            .select("id, username, role, created_at")
-            .order("created_at", { ascending: false });
+            .select("id, username, role")
+            .order("id", { ascending: true });
 
         if (error) throw error;
 
