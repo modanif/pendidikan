@@ -5,6 +5,12 @@
       "username": "admin",
       "password": "admin123",
       "role": "admin"
+    },
+    {
+      "id": 1783010624643,
+      "username": "Dani",
+      "password": "1234",
+      "role": "user"
     }
   ]
 }
