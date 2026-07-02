@@ -94,3 +94,13 @@ async function kirimKomentar() {
 
 // Jalankan fungsi memuat data saat halaman pertama kali dibuka
 loadKomentar();
+
+// Contoh cuplikan untuk bagian card di forum.js
+htmlContent += `
+    <div class="card comment-card mb-3">
+        <div class="card-body">
+            <h6 class="text-primary fw-bold">@${item.username}</h6>
+            <p class="card-text">${item.komentar}</p>
+        </div>
+    </div>
+`;

@@ -5,40 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forum Diskusi - Penilik</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .forum-container {
-            max-width: 800px;
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            padding: 30px;
-        }
+        body { background: #eef2f7; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        .forum-wrapper { max-width: 750px; margin: 40px auto; }
+        .header-card { background: linear-gradient(135deg, #4e54c8, #8f94fb); color: white; border-radius: 15px; padding: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .comment-card { border-radius: 12px; border: none; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: transform 0.2s; }
+        .comment-card:hover { transform: translateY(-3px); }
+        .input-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+        .btn-send { background: #4e54c8; color: white; border-radius: 8px; }
+        .btn-send:hover { background: #3d42a1; color: white; }
     </style>
 </head>
 <body>
 
-<div class="container my-5 forum-container">
-    <div class="d-flex justify-content-between align-items-center pb-3 border-bottom mb-4">
-        <h4 id="welcome" class="fw-bold text-primary mb-0"></h4>
-        <button onclick="logout()" class="btn btn-outline-danger btn-sm px-3 rounded-pill">
-            Logout
+<div class="container forum-wrapper">
+    <!-- Header -->
+    <div class="header-card mb-4 d-flex justify-content-between align-items-center">
+        <div>
+            <h3 class="mb-1">Forum Diskusi</h3>
+            <p id="welcome" class="mb-0 opacity-75"></p>
+        </div>
+        <button onclick="logout()" class="btn btn-light btn-sm px-3 rounded-pill text-danger">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
         </button>
     </div>
 
-    <div class="mb-4">
-        <h5 class="fw-semibold text-secondary mb-3">Daftar Komentar</h5>
-        <div id="listKomentar">
-            <div class="text-center py-4 text-muted">Membuka komentar...</div>
+    <!-- Daftar Komentar -->
+    <h5 class="text-muted mb-3"><i class="fa-regular fa-comments"></i> Percakapan Terkini</h5>
+    <div id="listKomentar">
+        <div class="text-center py-5">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="mt-2 text-muted">Memuat diskusi...</p>
         </div>
     </div>
 
-    <div id="formKomentar" class="pt-3"></div>
+    <!-- Form Input -->
+    <div class="input-card mt-5">
+        <h6 class="mb-3"><i class="fa-solid fa-pen-nib"></i> Tulis Tanggapan Anda</h6>
+        <div id="formKomentar"></div>
+    </div>
 </div>
 
 <script src="js/forum.js"></script>
-
 </body>
 </html>
