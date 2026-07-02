@@ -1,8 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
-
 export default async function handler(req, res) {
     if (req.method !== "POST") {
         return res.status(405).json({
@@ -11,10 +8,13 @@ export default async function handler(req, res) {
         });
     }
 
+    const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
     if (!supabaseUrl || !supabaseAnonKey) {
         return res.status(500).json({
             success: false,
-            message: "Environment variables Supabase belum terkonfigurasi dengan benar di Vercel."
+            message: "Variabel lingkungan database tidak terbaca di server Vercel."
         });
     }
 
