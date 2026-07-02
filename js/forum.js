@@ -85,64 +85,6 @@ async function loadKomentar() {
     }
 }
 
-async function loadDaftarUser() {
-    if (!user || user.role !== "admin") return;
-    
-    try {
-        const response = await fetch("/api/get-users");
-        const result = await response.json();
-        
-        const containerUser = document.getElementById("daftarUserAdmin");
-        if (!containerUser) return;
-
-        if (result.success && result.data) {
-            let tabelHtml = `
-                <div class="card mt-4 shadow-sm border-0" style="border-radius: 12px;">
-                    <div class="card-body p-4">
-                        <h5 class="fw-semibold text-dark mb-3"><i class="fa-solid fa-users-gear text-primary"></i> Manajamen Akun Terdaftar</h5>
-                        <div class="table-responsive">
-                            <table class="table table-hover align-middle mb-0" style="font-size: 0.9rem;">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Username</th>
-                                        <th>Role</th>
-                                        <th>Tanggal Registrasi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-            `;
-
-            result.data.forEach(u => {
-                const badgeColor = u.role === "admin" ? "bg-danger" : "bg-secondary";
-                const tanggal = new Date(u.created_at).toLocaleDateString("id-ID", {
-                    year: 'numeric', month: 'long', day: 'numeric'
-                });
-
-                tabelHtml += `
-                    <tr>
-                        <td class="text-muted">#${u.id}</td>
-                        <td class="fw-bold text-secondary">@${u.username}</td>
-                        <td><span class="badge ${badgeColor}">${u.role}</span></td>
-                        <td class="text-muted">${tanggal}</td>
-                    </tr>
-                `;
-            });
-
-            tabelHtml += `
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            `;
-            containerUser.innerHTML = tabelHtml;
-        }
-    } catch (err) {
-        console.error("Gagal memuat daftar user:", err);
-    }
-}
-
 if (user && user.role === "user") {
     document.getElementById("formKomentar").innerHTML = `
         <textarea id="komentar" class="form-control mb-2" rows="3" placeholder="Tulis komentar Anda di sini..."></textarea>
@@ -154,7 +96,6 @@ if (user && user.role === "user") {
             <i class="fa-solid fa-user-shield"></i> Anda masuk sebagai Admin. Anda dapat membalas atau menghapus komentar langsung pada daftar di atas.
         </div>
     `;
-    loadDaftarUser();
 } else {
     document.getElementById("formKomentar").innerHTML = `
         <div class="alert alert-warning py-3 text-center mb-0" style="font-size: 0.95rem;">
