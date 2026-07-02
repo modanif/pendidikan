@@ -1,3 +1,13 @@
+const user = JSON.parse(localStorage.getItem("user"));
+
+if (!user || user.role !== "admin") {
+    alert("Akses ditolak! Halaman ini hanya untuk Admin.");
+    location.href = "index.html";
+} else {
+    document.getElementById("adminWelcome").innerHTML = `Log masuk sebagai: ${user.username}`;
+    loadDaftarUser();
+}
+
 async function loadDaftarUser() {
     try {
         const response = await fetch("/api/get-users");
@@ -18,7 +28,6 @@ async function loadDaftarUser() {
                                         <th>ID</th>
                                         <th>Username</th>
                                         <th>Role</th>
-                                        <th>Tanggal Registrasi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -26,16 +35,12 @@ async function loadDaftarUser() {
 
             result.data.forEach(u => {
                 const badgeColor = u.role === "admin" ? "bg-danger" : "bg-secondary";
-                const tanggal = new Date(u.created_at).toLocaleDateString("id-ID", {
-                    year: 'numeric', month: 'long', day: 'numeric'
-                });
 
                 tabelHtml += `
                     <tr>
                         <td class="text-muted">#${u.id}</td>
                         <td class="fw-bold text-secondary">@${u.username}</td>
                         <td><span class="badge ${badgeColor}">${u.role}</span></td>
-                        <td class="text-muted">${tanggal}</td>
                     </tr>
                 `;
             });
