@@ -23,6 +23,12 @@
       "username": "Mohammad Dani",
       "password": "1234",
       "role": "user"
+    },
+    {
+      "id": 1783012249475,
+      "username": "Lyra",
+      "password": "1234",
+      "role": "user"
     }
   ]
 }
