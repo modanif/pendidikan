@@ -1,8 +1,11 @@
-import fs from 'fs';
-import path from 'path';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
 
 export default async function handler(req, res) {
-
     if (req.method !== "POST") {
         return res.status(405).json({
             success: false,
@@ -12,47 +15,43 @@ export default async function handler(req, res) {
 
     const { username, password } = req.body;
 
+    if (!username || !password) {
+        return res.status(400).json({
+            success: false,
+            message: "Username dan password wajib diisi"
+        });
+    }
+
     try {
-        // 1. Ambil path/lokasi file user.json di root project
-        const filePath = path.join(process.cwd(), 'user.json');
-        
-        // 2. Baca isi file tersebut
-        const fileData = fs.readFileSync(filePath, 'utf-8');
-        const jsonData = JSON.parse(fileData);
+        const { data: user, error } = await supabase
+            .from('users')
+            .select('*')
+            .eq('username', username)
+            .eq('password', password)
+            .single();
 
-        // 3. Ambil array di dalam properti "users" sesuai format user.json Anda
-        const users = jsonData.users;
-
-        // 4. Cari user yang cocok
-        const user = users.find(
-            u =>
-                u.username.toLowerCase() === username.toLowerCase() &&
-                u.password === password
-        );
-
-        if (user) {
-            return res.status(200).json({
-                success: true,
-                message: "Login berhasil!",
-                user: {
-                    id: user.id,
-                    username: user.username,
-                    role: user.role
-                }
+        if (error || !user) {
+            return res.status(401).json({
+                success: false,
+                message: "Username atau password salah"
             });
         }
 
-        return res.status(401).json({
-            success: false,
-            message: "Username atau password salah"
+        return res.status(200).json({
+            success: true,
+            message: "Login berhasil!",
+            user: {
+                id: user.id,
+                username: user.username,
+                role: user.role
+            }
         });
 
-    } catch (error) {
-        // Jika file user.json belum dibuat atau ada error pembacaan file
+    } catch (err) {
         return res.status(500).json({
             success: false,
-            message: "Gagal membaca data pengguna",
-            error: error.message
+            message: "Terjadi kesalahan pada server",
+            error: err.message
         });
     }
 }
