@@ -11,14 +11,53 @@ function logout() {
     location.href = "login.html";
 }
 
+// Fungsi utama untuk memuat dan menampilkan komentar ke layar (di bagian atas)
+async function loadKomentar() {
+    try {
+        const response = await fetch("/api/comments");
+        const result = await response.json();
+        
+        const listKomentarDiv = document.getElementById("listKomentar");
+        if (!listKomentarDiv) return;
+
+        if (result.success && result.data) {
+            let htmlContent = "";
+            
+            result.data.forEach(item => {
+                htmlContent += `
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">@${item.username}</h6>
+                            <p class="card-text">${item.komentar}</p>
+                            ${item.balasan ? `
+                                <div class="bg-light p-2 rounded mt-2 border-left" style="border-left: 4px solid #007bff;">
+                                    <strong>Balasan Admin:</strong>
+                                    <p class="mb-0 text-secondary">${item.balasan}</p>
+                                </div>
+                            ` : ""}
+                        </div>
+                    </div>
+                `;
+            });
+
+            listKomentarDiv.innerHTML = htmlContent || "<p class='text-muted text-center'>Belum ada komentar.</p>";
+        }
+    } catch (err) {
+        console.error("Gagal memuat komentar:", err);
+    }
+}
+
+// Menyiapkan kotak input pengiriman komentar (ditaruh di bawah)
 if (user.role === "user") {
     document.getElementById("formKomentar").innerHTML = `
-        <textarea id="komentar" class="form-control mb-2"></textarea>
+        <hr class="my-4">
+        <h4>Kirim Komentar Baru</h4>
+        <textarea id="komentar" class="form-control mb-2" rows="3" placeholder="Tulis komentar Anda di sini..."></textarea>
         <button onclick="kirimKomentar()" class="btn btn-success">Kirim Komentar</button>
-        <hr>
     `;
 }
 
+// Fungsi untuk mengirim komentar baru ke backend
 async function kirimKomentar() {
     const teksKomentar = document.getElementById("komentar").value;
 
@@ -42,28 +81,16 @@ async function kirimKomentar() {
         const result = await response.json();
 
         if (result.success) {
-            alert("Komentar berhasil dikirim");
+            alert("Komentar berhasil dikirim!");
             document.getElementById("komentar").value = "";
-            loadKomentar();
+            loadKomentar(); // Segera muat ulang agar komentar baru muncul paling atas
         } else {
             alert("Gagal mengirim: " + result.message);
         }
     } catch (err) {
-        alert("Terjadi kesalahan sistem");
+        alert("Terjadi kesalahan sistem saat mengirim");
     }
 }
 
-async function loadKomentar() {
-    try {
-        const response = await fetch("/api/comments");
-        const result = await response.json();
-        
-        if (result.success) {
-            console.log(result.data);
-        }
-    } catch (err) {
-        console.error(err);
-    }
-}
-
+// Jalankan fungsi memuat data saat halaman pertama kali dibuka
 loadKomentar();
