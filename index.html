@@ -830,8 +830,8 @@
 </div>
 
     <div class="container main-container px-3">
-    
- <!-- Header -->
+        
+        <!-- Header -->
         <div class="header-card">
             <div class="banner-wrapper">
                 <img src="Banner.jpeg" class="banner-img" alt="Banner">
@@ -842,45 +842,32 @@
             </div>
             
             <div class="info-section">
+                <h1 class="main-title">IPI BANGKALAN JAYA</h1>
+                <div class="subtitle">"IPI Jaya, Penilik Sejahtera, Paud Dikmas Berkualitas"</div>
+            </div>
+        </div>
 
-    <h1 class="main-title">
-        IPI BANGKALAN JAYA
-    </h1>
+        <!-- Menu 1: Visi Misi -->
+        <div class="custom-accordion-item menu-visi">
+            <button class="custom-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false">
+                <div class="button-icon-box"><i class="bi bi-journal-bookmark-fill"></i></div>
+                <div class="button-text">Visi Misi</div>
+                <div class="button-arrow-box"><i class="bi bi-chevron-down"></i></div>
+            </button>
+            <div id="collapseOne" class="collapse">
+                <div class="custom-content-body text-center">
+                    <p class="mb-2"><strong>Visi:</strong> Terwujudnya Insan Bangkalan yang Cerdas secara Intelektual, Kokoh dalam Karakter, dan Unggul dalam Prestasi menuju Masyarakat yang Sejahtera</p>
+                    
+                    <h5 class="misi-title">Misi:</h5>
+                    <ul class="misi-list">
+                        <li><i class="bi bi-check-circle-fill"></i> 1. Pengawasan Mutu Pembelajaran</li>
+                        <li><i class="bi bi-check-circle-fill"></i> 2. Penguatan Karakter dan Literasi</li>
+                        <li><i class="bi bi-check-circle-fill"></i> 3. Pembinaan Profesionalisme Guru</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-    <div class="subtitle">
-        "IPI Jaya, Penilik Sejahtera, Paud Dikmas Berkualitas"
-    </div>
-
-    <div class="mt-3 d-flex flex-wrap gap-2 justify-content-center">
-
-    <span id="userDisplay" class="fw-bold text-primary align-self-center"></span>
-
-    <a href="login.html" id="loginBtn" class="btn btn-outline-primary btn-sm">
-        Login
-    </a>
-
-    <a href="register.html" id="registerBtn" class="btn btn-success btn-sm">
-        Register
-    </a>
-
-    <a href="forum.html" class="btn btn-warning btn-sm">
-        Forum Diskusi
-    </a>
-
-    <!-- TOMBOL MENU ADMIN BARU (Disembunyikan bawaan) -->
-    <a href="admin.html" id="adminBtn" class="btn btn-dark btn-sm" style="display:none;">
-        <i class="fa-solid fa-user-gear"></i> Menu Admin
-    </a>
-
-    <button id="logoutBtn" class="btn btn-danger btn-sm" style="display:none;" onclick="handleLogout()">
-        Logout
-    </button>
-
-</div>
-
-    </div>
-
-</div>
         <!-- Menu 2: Komunitas -->
         <div class="custom-accordion-item menu-komunitas">
             <button class="custom-accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false">
@@ -1215,9 +1202,9 @@
 
     <div class="col-6 col-md-4 text-center">
         <div class="gallery-img-wrapper">
-            <img src="/Galeri Penilik/4.jpeg"
+            <img src="/Galeri Penilik/12.jpeg"
                 class="gallery-item"
-                alt="Purna Tugas BU Unik"
+                alt="Purna Tugas Penilik Modung"
                 onclick="showImage(this.src,this.alt)">
         </div>
         <div class="gallery-caption">Purna Tugas</div>
@@ -1225,9 +1212,9 @@
 
      <div class="col-6 col-md-4 text-center">
         <div class="gallery-img-wrapper">
-            <img src="/Galeri Penilik/6.jpeg"
+            <img src="/Galeri Penilik/13.jpeg"
                 class="gallery-item"
-                alt="Purna Tugas Pak Umam"
+                alt="Purna Tugas Penilik Modung1"
                 onclick="showImage(this.src,this.alt)">
         </div>
         <div class="gallery-caption">Purna Tugas</div>
@@ -1502,6 +1489,56 @@
             </div>
         </div>
 
+        
+    <!-- Menu 6 : Hubungi Kami -->
+<div class="custom-accordion-item menu-kontak">
+
+    <button class="custom-accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseSix">
+
+        <div class="button-icon-box">
+            <i class="bi bi-chat-dots-fill"></i>
+        </div>
+
+        <div class="button-text">
+            Pertanyaan dan Saran
+        </div>
+
+        <div class="button-arrow-box">
+            <i class="bi bi-chevron-down"></i>
+        </div>
+
+    </button>
+
+    <div id="collapseSix" class="collapse">
+
+        <div class="custom-content-body">
+
+            <h6 class="fw-bold">
+                Layanan Informasi IPI Bangkalan
+            </h6>
+
+            <p>
+                Apabila memiliki pertanyaan, membutuhkan informasi lebih lanjut,
+                atau ingin menyampaikan saran dan masukan, silakan mengisi formulir berikut.
+            </p>
+
+            <a href="form.html"
+               target="_blank"
+               class="btn btn-primary">
+
+                <i class="bi bi-pencil-square me-2"></i>
+                Isi Formulir Pertanyaan
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
     </div>
 
 
@@ -1526,39 +1563,6 @@
 
         modal.show();
     }
-
-    const currentUser = JSON.parse(localStorage.getItem("user"));
-
-const userDisplay = document.getElementById("userDisplay");
-const loginBtn = document.getElementById("loginBtn");
-const registerBtn = document.getElementById("registerBtn");
-const adminBtn = document.getElementById("adminBtn");
-const logoutBtn = document.getElementById("logoutBtn");
-
-if (currentUser) {
-    userDisplay.innerHTML = `Halo, ${currentUser.username} (${currentUser.role}) `;
-    
-    loginBtn.style.display = "none";
-    registerBtn.style.display = "none";
-    logoutBtn.style.display = "inline-block";
-
-    if (currentUser.role === "admin") {
-        adminBtn.style.display = "inline-block";
-    }
-} else {
-    userDisplay.innerHTML = "";
-    loginBtn.style.display = "inline-block";
-    registerBtn.style.display = "inline-block";
-    adminBtn.style.display = "none";
-    logoutBtn.style.display = "none";
-}
-
-function handleLogout() {
-    localStorage.removeItem("user");
-    window.location.reload();
-}
     </script>
-
-    <script src="js/auth.js"></script>
 </body>
 </html>
