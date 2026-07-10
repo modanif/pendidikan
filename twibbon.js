@@ -144,27 +144,52 @@ ctx.drawImage(
 
     // Nama Sekolah
 
-    ctx.fillStyle = "#ffffff";
-    ctx.textAlign = "center";
+   ctx.fillStyle = "#ffffff";
+ctx.textAlign = "center";
 
-    ctx.font = "bold 30px Arial";
+let schoolFont = 30;
 
-    ctx.fillText(
-        sekolah.toUpperCase(),
-        540,
-        855
-    );
+ctx.font = `bold ${schoolFont}px Arial`;
 
-    // Nama Siswa
+while(ctx.measureText(sekolah.toUpperCase()).width > 550 && schoolFont > 18){
+    schoolFont--;
+    ctx.font = `bold ${schoolFont}px Arial`;
+}
 
-    ctx.fillStyle = "#003c8f";
+ctx.fillText(
+    sekolah.toUpperCase(),
+    540,
+    855
+);
 
-    ctx.font = "bold 40px Arial";
+   // Nama Lengkap 
 
-    ctx.fillText(
-        nama.toUpperCase(),
-        540,
-        930
+ctx.fillStyle = "#003c8f";
+ctx.textAlign = "center";
+
+let fontSize = 40;
+
+ctx.font = `bold ${fontSize}px Arial`;
+
+// jika terlalu panjang, kecilkan font
+while(ctx.measureText(nama.toUpperCase()).width > 500 && fontSize > 20){
+    fontSize--;
+    ctx.font = `bold ${fontSize}px Arial`;
+}
+
+ctx.fillText(
+     toTitleCase(nama),
+    540,
+    930
+);
+}
+
+function toTitleCase(str){
+    return str.toLowerCase().replace(
+        /\b\w/g,
+        function(char){
+            return char.toUpperCase();
+        }
     );
 }
 
